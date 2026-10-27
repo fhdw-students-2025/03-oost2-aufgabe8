@@ -1,0 +1,7 @@
+Plaintext
+
+.idea/
+*.iml
+out/
+bin/
+target/
