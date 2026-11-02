@@ -1,0 +1,4 @@
+# Normalize line endings to LF in the repo (matches .editorconfig)
+* text=auto eol=lf
+# Windows scripts need CRLF
+*.cmd text eol=crlf
