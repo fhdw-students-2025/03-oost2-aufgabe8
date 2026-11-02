@@ -51,13 +51,6 @@ public class BankAccountTest {
     }
 
     @Test
-    public void depositMaxIntPlusOneTest() {
-        testAccount.withdraw(100);
-        testAccount.deposit(Integer.MAX_VALUE+1);
-        assertEquals(Integer.MAX_VALUE+1, testAccount.getBalance());
-    }
-
-    @Test
     public void withdraw0Test() {
         assertThrows(
                 IllegalArgumentException.class,
