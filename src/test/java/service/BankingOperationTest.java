@@ -130,4 +130,37 @@ public class BankingOperationTest {
 
         assertEquals(0, bankAccount.getBalance());
     }
+
+    @Test
+    public void runSkipsOnlyFailedWithdrawals() {
+
+        bankAccount.deposit(250);
+
+        BankingOperation operation =
+                new BankingOperation(bankAccount, -100, 5);
+
+        assertDoesNotThrow(operation::run);
+
+        assertEquals(50, bankAccount.getBalance());
+    }
+
+    @Test
+    public void runTwiceBooksTwice() {
+
+        BankingOperation operation =
+                new BankingOperation(bankAccount, 100, 2);
+
+        operation.run();
+        operation.run();
+
+        assertEquals(400, bankAccount.getBalance());
+    }
+
+    @Test
+    public void constructorThrowsExceptionWhenAmountIsMinValue() {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> new BankingOperation(bankAccount, Integer.MIN_VALUE, 1)
+        );
+    }
 }
