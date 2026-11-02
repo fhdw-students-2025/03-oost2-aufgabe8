@@ -22,11 +22,10 @@ public class BankingOperation implements Runnable{
     private final int repetitions;
 
     /**
-     * Creates a new operation. Nothing is booked until {@link #run()} is called.
+     * Creates a new operation. {@link #run()} must be called to book it.
      *
      * @param account     the account to operate on; must not be {@code null}
-     * @param amount      the amount per operation; positive to deposit,
-     *                    negative to withdraw, must not be {@code 0}
+     * @param amount      the amount per operation; positive to deposit, negative to withdraw, must not be {@code 0}.
      * @param repetitions how often the operation is executed; must not be negative
      * @throws IllegalArgumentException if {@code account} is {@code null},
      *                                  {@code amount} is {@code 0}
@@ -36,6 +35,10 @@ public class BankingOperation implements Runnable{
 
         if (account == null) {
             throw new IllegalArgumentException("Account must not be null");
+        }
+
+        if (amount == Integer.MIN_VALUE) {
+            throw new IllegalArgumentException("Amount must be greater than Integer.MIN_VALUE");
         }
 
         if (amount == 0) {
