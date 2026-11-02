@@ -42,7 +42,7 @@ public class BankAccount {
             throw new IllegalArgumentException("Amount must be positive");
         }
         if (amount > accountBalance) {
-            throw new IllegalArgumentException("Insufficient funds");
+            throw new InsufficientFundsException("Can't withdraw amount greater than accountBalance");
         }
         accountBalance -= amount;
     }
