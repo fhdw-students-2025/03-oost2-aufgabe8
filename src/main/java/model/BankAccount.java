@@ -13,12 +13,16 @@ public class BankAccount {
      * Adds the given amount to the balance.
      *
      * @param amount the amount to deposit; must be greater than {@code 0}
-     * @throws IllegalArgumentException if {@code amount} is zero or negative;
-     *                                  the balance stays unchanged
+     * @throws IllegalArgumentException if {@code amount} is zero or negative; the balance stays unchanged
+     * @throws IllegalArgumentException if the balance would overflow.
      */
     public void deposit(int amount){
         if(amount <= 0){
             throw new IllegalArgumentException("Amount must be positive");
+        }
+
+        if (amount > Integer.MAX_VALUE - accountBalance) {
+            throw new IllegalArgumentException("Deposit would overflow balance");
         }
 
         accountBalance += amount;
