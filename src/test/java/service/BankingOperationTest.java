@@ -16,7 +16,7 @@ public class BankingOperationTest {
     }
 
     @Test
-    public void constructorThrowsExceptionWhenAccountIsNull() {
+    void constructorThrowsExceptionWhenAccountIsNull() {
         assertThrows(
             IllegalArgumentException.class,
             () -> new BankingOperation(null, 100, 10)
@@ -24,7 +24,7 @@ public class BankingOperationTest {
     }
 
     @Test
-    public void constructorThrowsExceptionWhenAmountIsZero() {
+    void constructorThrowsExceptionWhenAmountIsZero() {
         assertThrows(
             IllegalArgumentException.class,
             () -> new BankingOperation(bankAccount, 0, 10)
@@ -32,7 +32,7 @@ public class BankingOperationTest {
     }
 
     @Test
-    public void constructorThrowsExceptionWhenRepetitionsAreNegative() {
+    void constructorThrowsExceptionWhenRepetitionsAreNegative() {
         assertThrows(
             IllegalArgumentException.class,
             () -> new BankingOperation(bankAccount, 100, -1)
@@ -40,28 +40,28 @@ public class BankingOperationTest {
     }
 
     @Test
-    public void constructorAcceptsPositiveAmount() {
+    void constructorAcceptsPositiveAmount() {
         assertDoesNotThrow(
             () -> new BankingOperation(bankAccount, 100, 10)
         );
     }
 
     @Test
-    public void constructorAcceptsNegativeAmount() {
+    void constructorAcceptsNegativeAmount() {
         assertDoesNotThrow(
             () -> new BankingOperation(bankAccount, -100, 10)
         );
     }
 
     @Test
-    public void constructorAcceptsZeroRepetitions() {
+    void constructorAcceptsZeroRepetitions() {
         assertDoesNotThrow(
             () -> new BankingOperation(bankAccount, 100, 0)
         );
     }
 
     @Test
-    public void runDepositsMoneyOnce() {
+    void runDepositsMoneyOnce() {
 
         BankingOperation operation =
             new BankingOperation(bankAccount, 100, 1);
@@ -72,7 +72,7 @@ public class BankingOperationTest {
     }
 
     @Test
-    public void runDepositsMoneyMultipleTimes() {
+    void runDepositsMoneyMultipleTimes() {
 
         BankingOperation operation =
             new BankingOperation(bankAccount, 100, 5);
@@ -83,7 +83,7 @@ public class BankingOperationTest {
     }
 
     @Test
-    public void runWithdrawsMoneyOnce() {
+    void runWithdrawsMoneyOnce() {
 
         bankAccount.deposit(500);
 
@@ -96,7 +96,7 @@ public class BankingOperationTest {
     }
 
     @Test
-    public void runWithdrawsMoneyMultipleTimes() {
+    void runWithdrawsMoneyMultipleTimes() {
 
         bankAccount.deposit(1000);
 
@@ -109,7 +109,7 @@ public class BankingOperationTest {
     }
 
     @Test
-    public void runDoesNothingWhenRepetitionsIsZero() {
+    void runDoesNothingWhenRepetitionsIsZero() {
 
         bankAccount.deposit(500);
 
@@ -122,7 +122,7 @@ public class BankingOperationTest {
     }
 
     @Test
-    public void runIgnoresFailedWithdrawal() {
+    void runIgnoresFailedWithdrawal() {
 
         BankingOperation operation =
             new BankingOperation(bankAccount, -100, 1);
@@ -133,7 +133,7 @@ public class BankingOperationTest {
     }
 
     @Test
-    public void runSkipsOnlyFailedWithdrawals() {
+    void runSkipsOnlyFailedWithdrawals() {
 
         bankAccount.deposit(250);
 
@@ -146,7 +146,7 @@ public class BankingOperationTest {
     }
 
     @Test
-    public void runTwiceBooksTwice() {
+    void runTwiceBooksTwice() {
 
         BankingOperation operation =
             new BankingOperation(bankAccount, 100, 2);
@@ -158,7 +158,7 @@ public class BankingOperationTest {
     }
 
     @Test
-    public void constructorThrowsExceptionWhenAmountIsMinValue() {
+    void constructorThrowsExceptionWhenAmountIsMinValue() {
         assertThrows(
             IllegalArgumentException.class,
             () -> new BankingOperation(bankAccount, Integer.MIN_VALUE, 1)
