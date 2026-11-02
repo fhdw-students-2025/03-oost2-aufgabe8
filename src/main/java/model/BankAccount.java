@@ -16,8 +16,8 @@ public class BankAccount {
      * @throws IllegalArgumentException if {@code amount} is zero or negative; the balance stays unchanged
      * @throws IllegalArgumentException if the balance would overflow.
      */
-    public void deposit(int amount){
-        if(amount <= 0){
+    public void deposit(int amount) {
+        if (amount <= 0) {
             throw new IllegalArgumentException("Amount must be positive");
         }
 
@@ -37,17 +37,17 @@ public class BankAccount {
      *                                  or greater than the current balance;
      *                                  the balance stays unchanged
      */
-    public void withdraw(int amount){
-        if(amount <= 0){
+    public void withdraw(int amount) {
+        if (amount <= 0) {
             throw new IllegalArgumentException("Amount must be positive");
         }
-        if(amount > accountBalance){
+        if (amount > accountBalance) {
             throw new IllegalArgumentException("Insufficient funds");
         }
         accountBalance -= amount;
     }
-    
-    public int getBalance(){
+
+    public int getBalance() {
         return accountBalance;
     }
 }

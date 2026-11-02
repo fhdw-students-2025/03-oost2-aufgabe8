@@ -15,7 +15,7 @@ import model.BankAccount;
  * A withdrawal that fails because the balance is too low is
  * <b>silently skipped</b>; the remaining repetitions still run.
  */
-public class BankingOperation implements Runnable{
+public class BankingOperation implements Runnable {
 
     private final BankAccount account;
     private final int amount;
@@ -67,7 +67,7 @@ public class BankingOperation implements Runnable{
                 try {
                     account.withdraw(-amount);
                 } catch (IllegalArgumentException e) {
-                    //Not enough accountBalance; this withdrawal stops, thread keeps running
+                    // Not enough accountBalance; this withdrawal stops, thread keeps running
                 }
             }
         }

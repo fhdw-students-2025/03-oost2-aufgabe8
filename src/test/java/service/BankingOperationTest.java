@@ -1,8 +1,9 @@
 package service;
 
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.BeforeEach;
 import model.BankAccount;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class BankingOperationTest {
@@ -17,45 +18,45 @@ public class BankingOperationTest {
     @Test
     public void constructorThrowsExceptionWhenAccountIsNull() {
         assertThrows(
-                IllegalArgumentException.class,
-                () -> new BankingOperation(null, 100, 10)
+            IllegalArgumentException.class,
+            () -> new BankingOperation(null, 100, 10)
         );
     }
 
     @Test
     public void constructorThrowsExceptionWhenAmountIsZero() {
         assertThrows(
-                IllegalArgumentException.class,
-                () -> new BankingOperation(bankAccount, 0, 10)
+            IllegalArgumentException.class,
+            () -> new BankingOperation(bankAccount, 0, 10)
         );
     }
 
     @Test
     public void constructorThrowsExceptionWhenRepetitionsAreNegative() {
         assertThrows(
-                IllegalArgumentException.class,
-                () -> new BankingOperation(bankAccount, 100, -1)
+            IllegalArgumentException.class,
+            () -> new BankingOperation(bankAccount, 100, -1)
         );
     }
 
     @Test
     public void constructorAcceptsPositiveAmount() {
         assertDoesNotThrow(
-                () -> new BankingOperation(bankAccount, 100, 10)
+            () -> new BankingOperation(bankAccount, 100, 10)
         );
     }
 
     @Test
     public void constructorAcceptsNegativeAmount() {
         assertDoesNotThrow(
-                () -> new BankingOperation(bankAccount, -100, 10)
+            () -> new BankingOperation(bankAccount, -100, 10)
         );
     }
 
     @Test
     public void constructorAcceptsZeroRepetitions() {
         assertDoesNotThrow(
-                () -> new BankingOperation(bankAccount, 100, 0)
+            () -> new BankingOperation(bankAccount, 100, 0)
         );
     }
 
@@ -63,7 +64,7 @@ public class BankingOperationTest {
     public void runDepositsMoneyOnce() {
 
         BankingOperation operation =
-                new BankingOperation(bankAccount, 100, 1);
+            new BankingOperation(bankAccount, 100, 1);
 
         operation.run();
 
@@ -74,7 +75,7 @@ public class BankingOperationTest {
     public void runDepositsMoneyMultipleTimes() {
 
         BankingOperation operation =
-                new BankingOperation(bankAccount, 100, 5);
+            new BankingOperation(bankAccount, 100, 5);
 
         operation.run();
 
@@ -87,7 +88,7 @@ public class BankingOperationTest {
         bankAccount.deposit(500);
 
         BankingOperation operation =
-                new BankingOperation(bankAccount, -100, 1);
+            new BankingOperation(bankAccount, -100, 1);
 
         operation.run();
 
@@ -100,7 +101,7 @@ public class BankingOperationTest {
         bankAccount.deposit(1000);
 
         BankingOperation operation =
-                new BankingOperation(bankAccount, -100, 3);
+            new BankingOperation(bankAccount, -100, 3);
 
         operation.run();
 
@@ -113,7 +114,7 @@ public class BankingOperationTest {
         bankAccount.deposit(500);
 
         BankingOperation operation =
-                new BankingOperation(bankAccount, 100, 0);
+            new BankingOperation(bankAccount, 100, 0);
 
         operation.run();
 
@@ -124,7 +125,7 @@ public class BankingOperationTest {
     public void runIgnoresFailedWithdrawal() {
 
         BankingOperation operation =
-                new BankingOperation(bankAccount, -100, 1);
+            new BankingOperation(bankAccount, -100, 1);
 
         assertDoesNotThrow(operation::run);
 
@@ -137,7 +138,7 @@ public class BankingOperationTest {
         bankAccount.deposit(250);
 
         BankingOperation operation =
-                new BankingOperation(bankAccount, -100, 5);
+            new BankingOperation(bankAccount, -100, 5);
 
         assertDoesNotThrow(operation::run);
 
@@ -148,7 +149,7 @@ public class BankingOperationTest {
     public void runTwiceBooksTwice() {
 
         BankingOperation operation =
-                new BankingOperation(bankAccount, 100, 2);
+            new BankingOperation(bankAccount, 100, 2);
 
         operation.run();
         operation.run();
@@ -159,8 +160,8 @@ public class BankingOperationTest {
     @Test
     public void constructorThrowsExceptionWhenAmountIsMinValue() {
         assertThrows(
-                IllegalArgumentException.class,
-                () -> new BankingOperation(bankAccount, Integer.MIN_VALUE, 1)
+            IllegalArgumentException.class,
+            () -> new BankingOperation(bankAccount, Integer.MIN_VALUE, 1)
         );
     }
 }
