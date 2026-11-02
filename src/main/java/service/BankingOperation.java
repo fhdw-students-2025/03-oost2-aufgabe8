@@ -1,6 +1,7 @@
 package service;
 
 import model.BankAccount;
+import model.InsufficientFundsException;
 
 /**
  * A task that repeatedly deposits money to or withdraws money from a
@@ -66,8 +67,8 @@ public class BankingOperation implements Runnable {
             } else {
                 try {
                     account.withdraw(-amount);
-                } catch (IllegalArgumentException e) {
-                    // Not enough accountBalance; this withdrawal stops, thread keeps running
+                } catch (InsufficientFundsException e) {
+                    // Not enough funds: skip this withdrawal, keep running
                 }
             }
         }

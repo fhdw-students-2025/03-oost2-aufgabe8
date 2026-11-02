@@ -33,9 +33,10 @@ public class BankAccount {
      *
      * @param amount the amount to withdraw; must be greater than {@code 0}
      *               and must not exceed the current balance
-     * @throws IllegalArgumentException if {@code amount} is zero or negative,
-     *                                  or greater than the current balance;
-     *                                  the balance stays unchanged
+     * @throws IllegalArgumentException   if {@code amount} is zero or negative;
+     *                                    the balance stays unchanged
+     * @throws InsufficientFundsException if {@code amount} is greater than the current balance;
+     *                                    the balance stays unchanged
      */
     public void withdraw(int amount) {
         if (amount <= 0) {

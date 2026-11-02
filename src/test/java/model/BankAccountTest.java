@@ -64,14 +64,14 @@ public class BankAccountTest {
     @Test
     void withdrawThrowsExceptionWhenAmountExceedsBalance() {
         assertThrows(
-            IllegalArgumentException.class,
+            InsufficientFundsException.class,
             () -> testAccount.withdraw(150));
     }
 
     @Test
     void withdrawDoesNotChangeBalanceWhenAmountExceedsBalance() {
         assertThrows(
-            IllegalArgumentException.class,
+            InsufficientFundsException.class,
             () -> testAccount.withdraw(150));
         assertEquals(100, testAccount.getBalance());
     }
@@ -114,7 +114,7 @@ public class BankAccountTest {
     void withdrawThrowsExceptionWhenAccountIsEmpty() {
         BankAccount emptyAccount = new BankAccount();
         assertThrows(
-            IllegalArgumentException.class,
+            InsufficientFundsException.class,
             () -> emptyAccount.withdraw(1));
         assertEquals(0, emptyAccount.getBalance());
     }
