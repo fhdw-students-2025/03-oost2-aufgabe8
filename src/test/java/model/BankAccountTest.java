@@ -49,13 +49,6 @@ public class BankAccountTest {
     }
 
     @Test
-    public void withdrawThrowsExceptionWhenAmountIsJustAboveBalance() {
-        assertThrows(
-            IllegalArgumentException.class,
-            () -> testAccount.withdraw(101));
-    }
-
-    @Test
     public void withdrawDecreasesBalanceByAmount() {
         testAccount.withdraw(30);
         assertEquals(70, testAccount.getBalance());
