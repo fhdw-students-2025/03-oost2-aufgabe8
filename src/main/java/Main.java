@@ -24,7 +24,7 @@ public class Main {
         t3.join();
         t4.join();
 
-        System.out.printf("Final account balance: %d\n", account.getBalance());
-        System.out.printf("Expected account balance: %d\n", expectedAmount);
+        System.out.printf("Final account balance: %d%n", account.getBalance());
+        System.out.printf("Expected account balance: %d%n", expectedAmount);
     }
 }
