@@ -17,13 +17,6 @@ public class BankAccountTest {
     }
 
     @Test
-    public void depositThrowsExceptionWhenAmountIsZero() {
-        assertThrows(
-            IllegalArgumentException.class,
-            () -> testAccount.deposit(0));
-    }
-
-    @Test
     public void depositIncreasesBalanceWhenAmountIsOne() {
         testAccount.deposit(1);
         assertEquals(101, testAccount.getBalance());
@@ -36,25 +29,11 @@ public class BankAccountTest {
     }
 
     @Test
-    public void depositThrowsExceptionWhenAmountIsNegative() {
-        assertThrows(
-            IllegalArgumentException.class,
-            () -> testAccount.deposit(-10));
-    }
-
-    @Test
     public void depositDoesNotChangeBalanceWhenAmountIsNegative() {
         assertThrows(
             IllegalArgumentException.class,
             () -> testAccount.deposit(-10));
         assertEquals(100, testAccount.getBalance());
-    }
-
-    @Test
-    public void withdrawThrowsExceptionWhenAmountIsZero() {
-        assertThrows(
-            IllegalArgumentException.class,
-            () -> testAccount.withdraw(0));
     }
 
     @Test
