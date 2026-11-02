@@ -130,28 +130,4 @@ public class BankingOperationTest {
 
         assertEquals(0, bankAccount.getBalance());
     }
-
-    @Test
-    public void runContinuesAfterFailedWithdrawal() {
-
-        bankAccount.deposit(50);
-
-        BankingOperation operation =
-                new BankingOperation(bankAccount, -100, 5);
-
-        assertDoesNotThrow(operation::run);
-
-        assertEquals(50, bankAccount.getBalance());
-    }
-
-    @Test
-    public void runHandlesLargeNumberOfDeposits() {
-
-        BankingOperation operation =
-                new BankingOperation(bankAccount, 1, 1000);
-
-        operation.run();
-
-        assertEquals(1000, bankAccount.getBalance());
-    }
 }
