@@ -3,9 +3,17 @@ package app;
 import model.BankAccount;
 import service.BankingOperation;
 
-@SuppressWarnings("checkstyle:MissingJavadocType")
+/**
+ * Demo that lets several threads deposit into and withdraw from one shared {@link BankAccount}.
+ */
 public class Main {
-    @SuppressWarnings("checkstyle:MissingJavadocMethod")
+    /**
+     * Starts two depositing and two withdrawing threads, waits for them and prints the
+     * final balance next to the expected one.
+     *
+     * @param args not used
+     * @throws InterruptedException if the main thread is interrupted while waiting for the workers
+     */
     public static void main(String[] args) throws InterruptedException {
         BankAccount account = new BankAccount();
         int operations = 1000;
