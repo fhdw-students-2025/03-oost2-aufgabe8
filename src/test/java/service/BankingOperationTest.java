@@ -1,8 +1,8 @@
-package src.services;
+package service;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
-import src.classes.BankAccount;
+import model.BankAccount;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class BankingOperationTest {
