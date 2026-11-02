@@ -1,6 +1,6 @@
 package src.services;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import src.classes.BankAccount;
 import static org.junit.jupiter.api.Assertions.*;
