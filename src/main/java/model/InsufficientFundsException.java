@@ -1,7 +1,7 @@
 package model;
 
 public class InsufficientFundsException extends RuntimeException {
-    public InsufficentFundsException(String message) {
+    public InsufficientFundsException(String message) {
         super(message);
     }
 }
