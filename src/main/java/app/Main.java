@@ -1,7 +1,11 @@
+package app;
+
 import model.BankAccount;
 import service.BankingOperation;
 
+@SuppressWarnings("checkstyle:MissingJavadocType")
 public class Main {
+    @SuppressWarnings("checkstyle:MissingJavadocMethod")
     public static void main(String[] args) throws InterruptedException {
         BankAccount account = new BankAccount();
         int operations = 1000;

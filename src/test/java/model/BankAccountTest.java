@@ -6,79 +6,65 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class BankAccountTest {
+class BankAccountTest {
 
-    private BankAccount testAccount;
+    private BankAccount account;
 
     @BeforeEach
     void setUp() {
-        testAccount = new BankAccount();
-        testAccount.deposit(100);
+        account = new BankAccount();
+        account.deposit(100);
     }
 
     @Test
     void depositIncreasesBalanceWhenAmountIsOne() {
-        testAccount.deposit(1);
-        assertEquals(101, testAccount.getBalance());
+        account.deposit(1);
+        assertEquals(101, account.getBalance());
     }
 
     @Test
     void depositIncreasesBalanceByAmount() {
-        testAccount.deposit(30);
-        assertEquals(130, testAccount.getBalance());
+        account.deposit(30);
+        assertEquals(130, account.getBalance());
     }
 
     @Test
     void depositDoesNotChangeBalanceWhenAmountIsNegative() {
         assertThrows(
             IllegalArgumentException.class,
-            () -> testAccount.deposit(-10));
-        assertEquals(100, testAccount.getBalance());
+            () -> account.deposit(-10));
+        assertEquals(100, account.getBalance());
     }
 
     @Test
     void withdrawAcceptsFullBalance() {
-        testAccount.withdraw(100);
-        assertEquals(0, testAccount.getBalance());
+        account.withdraw(100);
+        assertEquals(0, account.getBalance());
     }
 
     @Test
     void withdrawDecreasesBalanceWhenAmountIsJustBelowBalance() {
-        testAccount.withdraw(99);
-        assertEquals(1, testAccount.getBalance());
+        account.withdraw(99);
+        assertEquals(1, account.getBalance());
     }
 
     @Test
     void withdrawDecreasesBalanceByAmount() {
-        testAccount.withdraw(30);
-        assertEquals(70, testAccount.getBalance());
-    }
-
-    @Test
-    void withdrawThrowsExceptionWhenAmountIsNegative() {
-        assertThrows(
-            IllegalArgumentException.class,
-            () -> testAccount.withdraw(-10));
-    }
-
-    @Test
-    void withdrawThrowsExceptionWhenAmountExceedsBalance() {
-        assertThrows(
-            InsufficientFundsException.class,
-            () -> testAccount.withdraw(150));
+        account.withdraw(30);
+        assertEquals(70, account.getBalance());
     }
 
     @Test
     void withdrawDoesNotChangeBalanceWhenAmountExceedsBalance() {
         assertThrows(
             InsufficientFundsException.class,
-            () -> testAccount.withdraw(150));
-        assertEquals(100, testAccount.getBalance());
+            () -> account.withdraw(150));
+        assertEquals(100, account.getBalance());
     }
 
     @Test
     void getBalanceReturnsCurrentBalance() {
-        assertEquals(100, testAccount.getBalance());
+        assertEquals(100, account.getBalance());
     }
 
     @Test
@@ -90,24 +76,24 @@ public class BankAccountTest {
     void depositDoesNotChangeBalanceWhenAmountIsZero() {
         assertThrows(
             IllegalArgumentException.class,
-            () -> testAccount.deposit(0));
-        assertEquals(100, testAccount.getBalance());
+            () -> account.deposit(0));
+        assertEquals(100, account.getBalance());
     }
 
     @Test
     void withdrawDoesNotChangeBalanceWhenAmountIsZero() {
         assertThrows(
             IllegalArgumentException.class,
-            () -> testAccount.withdraw(0));
-        assertEquals(100, testAccount.getBalance());
+            () -> account.withdraw(0));
+        assertEquals(100, account.getBalance());
     }
 
     @Test
     void withdrawDoesNotChangeBalanceWhenAmountIsNegative() {
         assertThrows(
             IllegalArgumentException.class,
-            () -> testAccount.withdraw(-10));
-        assertEquals(100, testAccount.getBalance());
+            () -> account.withdraw(-10));
+        assertEquals(100, account.getBalance());
     }
 
     @Test
@@ -130,7 +116,7 @@ public class BankAccountTest {
     void depositThrowsExceptionWhenBalanceWouldOverflow() {
         assertThrows(
             IllegalArgumentException.class,
-            () -> testAccount.deposit(Integer.MAX_VALUE));
-        assertEquals(100, testAccount.getBalance());
+            () -> account.deposit(Integer.MAX_VALUE));
+        assertEquals(100, account.getBalance());
     }
 }

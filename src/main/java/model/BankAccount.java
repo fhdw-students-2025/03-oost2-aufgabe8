@@ -7,25 +7,26 @@ package model;
  * withdrawals that exceed the current balance are rejected.
  */
 public class BankAccount {
-    private int accountBalance;
+    private int balance;
 
     /**
      * Adds the given amount to the balance.
      *
      * @param amount the amount to deposit; must be greater than {@code 0}
-     * @throws IllegalArgumentException if {@code amount} is zero or negative; the balance stays unchanged
-     * @throws IllegalArgumentException if the balance would overflow.
+     * @throws IllegalArgumentException if {@code amount} is zero or negative,
+     *                                  or if the balance would overflow;
+     *                                  the balance stays unchanged
      */
     public void deposit(int amount) {
         if (amount <= 0) {
             throw new IllegalArgumentException("Amount must be positive");
         }
 
-        if (amount > Integer.MAX_VALUE - accountBalance) {
+        if (amount > Integer.MAX_VALUE - balance) {
             throw new IllegalArgumentException("Deposit would overflow balance");
         }
 
-        accountBalance += amount;
+        balance += amount;
     }
 
     /**
@@ -42,13 +43,20 @@ public class BankAccount {
         if (amount <= 0) {
             throw new IllegalArgumentException("Amount must be positive");
         }
-        if (amount > accountBalance) {
-            throw new InsufficientFundsException("Can't withdraw amount greater than accountBalance");
+
+        if (amount > balance) {
+            throw new InsufficientFundsException("Insufficient funds");
         }
-        accountBalance -= amount;
+
+        balance -= amount;
     }
 
+    /**
+     * Returns the current balance.
+     *
+     * @return the current balance; never negative
+     */
     public int getBalance() {
-        return accountBalance;
+        return balance;
     }
 }

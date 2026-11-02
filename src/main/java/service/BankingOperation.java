@@ -26,14 +26,14 @@ public class BankingOperation implements Runnable {
      * Creates a new operation. {@link #run()} must be called to book it.
      *
      * @param account     the account to operate on; must not be {@code null}
-     * @param amount      the amount per operation; positive to deposit, negative to withdraw, must not be {@code 0}.
+     * @param amount      the amount per operation; positive to deposit, negative to withdraw;
+     *                    must not be {@code 0} or {@link Integer#MIN_VALUE}
      * @param repetitions how often the operation is executed; must not be negative
      * @throws IllegalArgumentException if {@code account} is {@code null},
-     *                                  {@code amount} is {@code 0}
+     *                                  {@code amount} is {@code 0} or {@link Integer#MIN_VALUE},
      *                                  or {@code repetitions} is negative
      */
     public BankingOperation(BankAccount account, int amount, int repetitions) {
-
         if (account == null) {
             throw new IllegalArgumentException("Account must not be null");
         }
