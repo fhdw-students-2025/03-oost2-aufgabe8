@@ -4,6 +4,7 @@ out/
 bin/
 target/
 .DS_Store
+CLAUDE.md
 
 !.idea/checkstyle-idea.xml
 !.idea/externalDependencies.xml
