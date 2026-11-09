@@ -2,13 +2,6 @@ package src.services;
 
 import src.classes.BankAccount;
 
-/**
- * BankingOperation.java
- * -> Runnable Class
- * -> Deposit or Withdraw (positive amount: Deposit; negative amount: Withdraw), n-times, on a BankAccount-Object
- * -> Constructor: BankingOperation(BankAccount account, int amount, int repetitions)
- */
-
 
 public class BankingOperation implements Runnable{
 
