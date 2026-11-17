@@ -78,15 +78,11 @@
             <property name="ignoreComments" value="false"/>
         </module>
 
-        <!-- Javadoc for everything public -->
-        <module name="MissingJavadocType">
-            <property name="scope" value="public"/>
+        <!-- Javadoc only where it explains the task; tags that are written must be valid -->
+        <module name="JavadocMethod">
+            <property name="allowMissingParamTags" value="true"/>
+            <property name="allowMissingReturnTag" value="true"/>
         </module>
-        <module name="MissingJavadocMethod">
-            <property name="scope" value="public"/>
-            <property name="allowMissingPropertyJavadoc" value="false"/>
-        </module>
-        <module name="JavadocMethod"/>
 
         <!-- Naming conventions -->
         <module name="TypeName"/>

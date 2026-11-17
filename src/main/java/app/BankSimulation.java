@@ -7,11 +7,8 @@ import model.BankAccount;
 import service.BankingOperation;
 
 /**
- * Shared logic of {@link MainUnsynchronized} and {@link MainSynchronized}.
- * <p>
- * Starts depositing and withdrawing threads in turn on one shared account. The account
- * gets enough starting balance first so that no withdrawal fails for lack of funds.
- * Without race conditions the final balance must therefore equal the starting balance.
+ * The account starts with enough balance for all withdrawals, so without race conditions
+ * none fails and the final balance equals the starting balance.
  * <p>
  * Optional program arguments: {@code [threadPairs] [repetitionsPerThread] [rounds]}
  */
@@ -25,24 +22,21 @@ final class BankSimulation {
     private BankSimulation() {
     }
 
-    /**
-     * Runs the simulation and prints the result of every round.
-     *
-     * @param title          headline of the output
-     * @param accountFactory creates a fresh account for every round
-     * @param args           optional {@code [threadPairs] [repetitionsPerThread] [rounds]}
-     * @throws InterruptedException if the main thread is interrupted while waiting for the workers
-     */
     static void run(String title, Supplier<BankAccount> accountFactory, String[] args)
-            throws InterruptedException {
-        int threadPairs = args.length > 0 ? Integer.parseInt(args[0]) : DEFAULT_THREAD_PAIRS;
-        int repetitions = args.length > 1 ? Integer.parseInt(args[1]) : DEFAULT_REPETITIONS;
-        int rounds = args.length > 2 ? Integer.parseInt(args[2]) : DEFAULT_ROUNDS;
+        throws InterruptedException {
+        int threadPairs = positiveArg(args, 0, "threadPairs", DEFAULT_THREAD_PAIRS);
+        int repetitions = positiveArg(args, 1, "repetitionsPerThread", DEFAULT_REPETITIONS);
+        int rounds = positiveArg(args, 2, "rounds", DEFAULT_ROUNDS);
 
-        int startBalance = Math.multiplyExact(Math.multiplyExact(threadPairs, repetitions), AMOUNT);
+        // If all deposits run first, the balance reaches twice the starting balance
+        long maxBalance = 2L * threadPairs * repetitions * AMOUNT;
+        if (maxBalance > Integer.MAX_VALUE) {
+            throw new IllegalArgumentException("Too many operations: balance would overflow int");
+        }
+        int startBalance = (int) (maxBalance / 2);
 
         System.out.printf("=== %s ===%n", title);
-        System.out.printf("%d threads (%d x deposit, %d x withdraw), %d x %d each%n",
+        System.out.printf("%d threads (%d × deposit, %d × withdraw), %d × %d each%n",
             threadPairs * 2, threadPairs, threadPairs, repetitions, AMOUNT);
         System.out.printf("Expected account balance: %d%n", startBalance);
 
@@ -75,5 +69,23 @@ final class BankSimulation {
                 round, balance, difference, millis);
         }
         System.out.printf("Correct: %d of %d rounds%n", correctRounds, rounds);
+    }
+
+    private static int positiveArg(String[] args, int index, String name, int defaultValue) {
+        if (args.length <= index) {
+            return defaultValue;
+        }
+
+        int value;
+        try {
+            value = Integer.parseInt(args[index]);
+        } catch (NumberFormatException e) {
+            value = 0;
+        }
+
+        if (value <= 0) {
+            throw new IllegalArgumentException(name + " must be a positive integer, got: " + args[index]);
+        }
+        return value;
     }
 }
