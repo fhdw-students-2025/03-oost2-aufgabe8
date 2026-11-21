@@ -2,6 +2,7 @@ package app;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.function.Supplier;
 import model.BankAccount;
 import service.BankingOperation;
@@ -19,6 +20,9 @@ final class BankSimulation {
     private static final int DEFAULT_REPETITIONS = 100_000;
     private static final int DEFAULT_ROUNDS = 5;
 
+    // German locale: "." as thousands separator (e.g. 1.000.000)
+    private static final Locale LOCALE = Locale.GERMANY;
+
     private BankSimulation() {
     }
 
@@ -35,10 +39,17 @@ final class BankSimulation {
         }
         int startBalance = (int) (maxBalance / 2);
 
-        System.out.printf("=== %s ===%n", title);
-        System.out.printf("%d threads (%d × deposit, %d × withdraw), %d × %d each%n",
-            threadPairs * 2, threadPairs, threadPairs, repetitions, AMOUNT);
-        System.out.printf("Expected account balance: %d%n", startBalance);
+        System.out.printf(LOCALE, "%n=== %s ===%n", title);
+        System.out.printf(LOCALE, "Threads:              %,d (%,d × deposit, %,d × withdraw)%n",
+            threadPairs * 2, threadPairs, threadPairs);
+        System.out.printf(LOCALE, "Operations/thread:    %,d × %,d ct%n", repetitions, AMOUNT);
+        System.out.printf(LOCALE, "Expected balance:     %,d ct%n%n", startBalance);
+
+        // Column widths so that all rounds line up
+        int roundWidth = String.valueOf(rounds).length();
+        int balanceWidth = String.format(LOCALE, "%,d", maxBalance).length();
+        String roundFormat = "Round %" + roundWidth + "d: balance = %," + balanceWidth + "d ct"
+            + " | difference %+," + (balanceWidth + 1) + "d ct | %,6d ms%n";
 
         int correctRounds = 0;
         for (int round = 1; round <= rounds; round++) {
@@ -65,10 +76,9 @@ final class BankSimulation {
             if (difference == 0) {
                 correctRounds++;
             }
-            System.out.printf("Round %d: final account balance = %d (difference %+d, %d ms)%n",
-                round, balance, difference, millis);
+            System.out.printf(LOCALE, roundFormat, round, balance, difference, millis);
         }
-        System.out.printf("Correct: %d of %d rounds%n", correctRounds, rounds);
+        System.out.printf(LOCALE, "%nCorrect: %d of %d rounds%n", correctRounds, rounds);
     }
 
     private static int positiveArg(String[] args, int index, String name, int defaultValue) {
